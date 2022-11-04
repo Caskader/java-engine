@@ -1,12 +1,17 @@
 package user;
 
-import Templates.obj.Rect;
 import core.App;
+import Templates.obj.Rect;
+import java.awt.event.KeyEvent;
 
 public class Main {
 
   public static void main(String[] args) throws Exception {
     App app = new App(1000, 400);
-    Rect rect = new Rect(app);
+    
+  }
+
+  public void onKeypressed(KeyEvent e){
+    System.out.println(e.getKeyChar());
   }
 }
