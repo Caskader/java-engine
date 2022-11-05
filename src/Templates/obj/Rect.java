@@ -3,7 +3,6 @@ package Templates.obj;
 import core.App;
 import core.Obj;
 import java.awt.Color;
-import Input.KeyboardInputs;
 
 public class Rect extends Obj {
 
@@ -13,7 +12,7 @@ public class Rect extends Obj {
     width = 100;
     height = 200;
     fill = true;
-    color = new Color(0,0,0);
+    color = new Color(250,0,250);
     type = "rect";
   }
 }

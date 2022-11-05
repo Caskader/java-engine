@@ -9,28 +9,60 @@ import java.awt.event.KeyListener;
 
 public class App {
   Frame frame;
-  Panel panel;
-
-  public App(int WinX, int WinY) {
-    panel = new Panel();
-    frame = new Frame(panel, WinX, WinY);
-    panel.requestFocus();
+  // Panel root = new Panel();
+  Panelhandler panelHandler = new Panelhandler();
+  public App(int WinX, int WinY ) {
+    frame = new Frame( WinX, WinY);
   }
 
-  public void drawObj(Obj[] a) {
-    panel.objs = a;
+  public String newPanel(String name){
+    Panel panel = new Panel();
+    panel.name = name;
+    frame.addPanel(panel);
+    return panel.name;
+  }
+
+  public void drawObj(Obj[] a , Panel panl) {
+    panl.objs = a;
+  }
+
+  public Panel getPanel(String name){
+    Panel pane = panelHandler.getPanel(name);
+    return pane;
   }
 }
 
-class Frame {
+class Panelhandler{
+    private Panel[] panels = {};
+    int i = 0;
+    public void addPanel(Panel a){
+      panels[i] = a;
+      i++;
+    }
 
-  public Frame(JPanel Jpanel, int x, int y) {
-    JFrame Jframe = new JFrame();
+    public Panel getPanel(String name){
+      Panel it = new Panel();
+      for (Panel panel : panels) {
+          if (panel.name == name){
+            it = panel;
+          }
+      }
+      return it;
+    }
+
+}
+
+class Frame {
+  JFrame Jframe = new JFrame();
+  public Frame(int x, int y) {
     Jframe = new JFrame();
     Jframe.setSize(x, y);
-    Jframe.add(Jpanel);
     Jframe.setVisible(true);
     Jframe.setDefaultCloseOperation(3);
+  }
+
+  public void addPanel(Panel panel){
+    Jframe.add(panel);
   }
 }
 
@@ -41,11 +73,13 @@ class Panel extends JPanel {
   }
 
   public Obj[] objs = {};
+  public String name;
 
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     for (Obj obj : objs) {
       if (obj.fill == true) {
+        g.setColor(obj.color);
         g.fillRect(obj.x, obj.y, obj.width, obj.height);
       } else {
         g.drawRect(obj.x, obj.y, obj.width, obj.height);
